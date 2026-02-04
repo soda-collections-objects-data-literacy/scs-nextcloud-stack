@@ -4,7 +4,7 @@ This Docker Compose stack provides a complete Nextcloud installation with OnlyOf
 
 ## Services
 
-- **nextcloud**: Nextcloud FPM server (31.0)
+- **nextcloud**: Nextcloud FPM server (32)
 - **nextcloud-nextcloud-reverse-proxy**: Nginx reverse proxy for Nextcloud
 - **nextcloud-onlyoffice-document-server**: OnlyOffice Document Server (8.3)
 - **nextcloud-onlyoffice-reverse-proxy**: Nginx reverse proxy for OnlyOffice
