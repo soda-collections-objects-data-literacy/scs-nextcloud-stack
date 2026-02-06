@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -euo pipefail
 
 echo "Installing Draw.io plugin..."
 php /var/www/html/occ app:install drawio

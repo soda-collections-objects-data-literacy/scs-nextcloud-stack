@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Print all commands and their arguments as they are executed.
-set -x
+set -euo pipefail
 
 echo "Installing OnlyOffice app..."
 

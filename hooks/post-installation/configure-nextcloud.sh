@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 echo "Configuring Nextcloud..."
 
 # Check if NEXTCLOUD_DOMAIN is set.

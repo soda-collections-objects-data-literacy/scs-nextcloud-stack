@@ -1,11 +1,6 @@
 #!/bin/bash
 
-# Print all commands and their arguments as they are executed.
-set -x
-
-if [ -f .env ]; then
-    source .env
-fi
+set -euo pipefail
 
 echo "Installing Social Login plugin..."
 php /var/www/html/occ --no-warnings app:install sociallogin
@@ -63,7 +58,7 @@ if [ -n "${SOCIALLOGIN_CUSTOM_PROVIDERS}" ]; then
 elif [ -n "${KC_DOMAIN}" ] && [ -n "${SOCIALLOGIN_KEYCLOAK_REALM}" ] && [ -n "${SOCIALLOGIN_KEYCLOAK_CLIENT_ID}" ] && [ -n "${SOCIALLOGIN_KEYCLOAK_CLIENT_SECRET}" ]; then
     # Construct Keycloak provider JSON from individual environment variables.
     # Structure: {"custom_oidc":[{provider_config}]}
-    KEYCLOAK_PROVIDER_JSON="{\"custom_oidc\":[{\"name\":\"keycloak\",\"title\":\"Keycloak\",\"authorizeUrl\":\"https://${KC_DOMAIN}/realms/${SOCIALLOGIN_KEYCLOAK_REALM}/protocol/openid-connect/auth\",\"tokenUrl\":\"https://${KC_DOMAIN}/realms/${SOCIALLOGIN_KEYCLOAK_REALM}/protocol/openid-connect/token\",\"displayNameClaim\":\"${SOCIALLOGIN_KEYCLOAK_DISPLAY_NAME_CLAIM:-username}\",\"userInfoUrl\":\"https://${KC_DOMAIN}/realms/${SOCIALLOGIN_KEYCLOAK_REALM}/protocol/openid-connect/userinfo\",\"logoutUrl\":\"https://${KC_DOMAIN}/realms/${SOCIALLOGIN_KEYCLOAK_REALM}/protocol/openid-connect/logout\",\"clientId\":\"${SOCIALLOGIN_KEYCLOAK_CLIENT_ID}\",\"clientSecret\":\"${SOCIALLOGIN_KEYCLOAK_CLIENT_SECRET}\",\"scope\":\"${SOCIALLOGIN_KEYCLOAK_SCOPE:-openid email groups profile}\",\"groupsClaim\":\"${SOCIALLOGIN_KEYCLOAK_GROUPS_CLAIM:-groups}\",\"style\":\"keycloak\",\"defaultGroup\":\"\"}]}"
+    KEYCLOAK_PROVIDER_JSON="{\"custom_oidc\":[{\"name\":\"keycloak\",\"title\":\"SCS SSO Login\",\"authorizeUrl\":\"https://${KC_DOMAIN}/realms/${SOCIALLOGIN_KEYCLOAK_REALM}/protocol/openid-connect/auth\",\"tokenUrl\":\"https://${KC_DOMAIN}/realms/${SOCIALLOGIN_KEYCLOAK_REALM}/protocol/openid-connect/token\",\"displayNameClaim\":\"${SOCIALLOGIN_KEYCLOAK_DISPLAY_NAME_CLAIM:-username}\",\"userInfoUrl\":\"https://${KC_DOMAIN}/realms/${SOCIALLOGIN_KEYCLOAK_REALM}/protocol/openid-connect/userinfo\",\"logoutUrl\":\"https://${KC_DOMAIN}/realms/${SOCIALLOGIN_KEYCLOAK_REALM}/protocol/openid-connect/logout\",\"clientId\":\"${SOCIALLOGIN_KEYCLOAK_CLIENT_ID}\",\"clientSecret\":\"${SOCIALLOGIN_KEYCLOAK_CLIENT_SECRET}\",\"scope\":\"${SOCIALLOGIN_KEYCLOAK_SCOPE:-openid email groups profile}\",\"groupsClaim\":\"${SOCIALLOGIN_KEYCLOAK_GROUPS_CLAIM:-groups}\",\"style\":\"keycloak\",\"defaultGroup\":\"\"}]}"
     php /var/www/html/occ --no-warnings config:app:set sociallogin custom_providers --value="${KEYCLOAK_PROVIDER_JSON}"
     echo "Social Login Keycloak provider auto-configured from environment variables."
 else
