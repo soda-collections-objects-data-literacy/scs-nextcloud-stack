@@ -58,6 +58,7 @@ php /var/www/html/occ config:system:set trusted_domains 2 --value="${NEXTCLOUD_N
 # Only add domains that users access Nextcloud from.
 
 # Konfiguriere Trusted-Proxies und Forwarded-Headers (behebt die Reverse-Proxy-Sicherheitswarnung).
+# overwritecondaddr: Overwrite nur anwenden, wenn die Anfrage von einem vertrauenswürdigen Proxy kommt.
 php /var/www/html/occ config:system:delete trusted_proxies
 php /var/www/html/occ config:system:set trusted_proxies 0 --value="127.0.0.1"
 php /var/www/html/occ config:system:set trusted_proxies 1 --value="10.0.0.0/8"
@@ -66,15 +67,15 @@ php /var/www/html/occ config:system:set trusted_proxies 3 --value="192.168.0.0/1
 php /var/www/html/occ config:system:set forwarded_for_headers 0 --value="HTTP_X_FORWARDED_FOR"
 php /var/www/html/occ config:system:set forwarded_host_headers 0 --value="HTTP_X_FORWARDED_HOST"
 php /var/www/html/occ config:system:set forwarded_proto_headers 0 --value="HTTP_X_FORWARDED_PROTO"
+php /var/www/html/occ config:system:set overwritecondaddr --value='^127\.0\.0\.1$|^10\.|^172\.(1[6-9]|2[0-9]|3[0-1])\.|^192\.168\.'
 
 # Konfiguriere Wartungsfenster (z. B. 22:00 für 6 Stunden).
 php /var/www/html/occ config:system:set maintenance_window_start --type integer --value=22
 php /var/www/html/occ config:system:set maintenance_window_length --type integer --value=6
 
 # Standard-Telefonregion für Prüfung von Telefonnummern ohne Ländervorwahl (ISO 3166-1, z. B. DE).
-if [ -n "${NEXTCLOUD_DEFAULT_PHONE_REGION}" ]; then
-    php /var/www/html/occ config:system:set default_phone_region --value="${NEXTCLOUD_DEFAULT_PHONE_REGION}"
-fi
+# Fallback auf DE, wenn nicht gesetzt (behebt Admin-Warnung).
+php /var/www/html/occ config:system:set default_phone_region --value="${NEXTCLOUD_DEFAULT_PHONE_REGION:-DE}"
 
 # Konfiguriere .well-known URLs.
 php /var/www/html/occ config:app:set core well-known.config --value='{"webfinger":"OCA\\Federation\\Controller\\FederationController", "nodeinfo":"OCA\\Federation\\Controller\\FederationController", "caldav":"OCA\\DAV\\Controller\\CalDAVController", "carddav":"OCA\\DAV\\Controller\\CardDAVController"}'
