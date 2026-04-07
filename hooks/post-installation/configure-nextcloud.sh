@@ -123,4 +123,22 @@ fi
 # Deactivate the AppApi
 php /var/www/html/occ --no-warnings app:disable app_api
 
+# Configure the skeleton directory for new users.
+# The source skeleton is mounted read-only, so copy it to a writable location
+# inside the nextcloud-data volume and resolve domain placeholders there.
+SKELETON_SRC="/var/www/html/skeleton"
+SKELETON_DEST="/var/www/html/data/__skeleton__"
+
+mkdir -p "${SKELETON_DEST}"
+cp -r "${SKELETON_SRC}/." "${SKELETON_DEST}/"
+
+# Replace __SCS_FULL_DOMAIN__ with the actual domain derived from NEXTCLOUD_DOMAIN
+# (e.g. drive.scs.example.com → example.com by stripping the drive.scs. prefix).
+SCS_FULL_DOMAIN="${NEXTCLOUD_DOMAIN#drive.scs.}"
+find "${SKELETON_DEST}" -type f -name "*.md" | while read -r file; do
+    sed -i "s/__SCS_FULL_DOMAIN__/${SCS_FULL_DOMAIN}/g" "$file"
+done
+
+php /var/www/html/occ config:system:set skeletondirectory --value="${SKELETON_DEST}"
+
 echo "Nextcloud-Konfiguration abgeschlossen!"

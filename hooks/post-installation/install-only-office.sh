@@ -73,18 +73,15 @@ php /var/www/html/occ --no-warnings config:app:set onlyoffice customization_plug
 # Enable forcesave to keep intermediate versions when editing.
 php /var/www/html/occ --no-warnings config:app:set onlyoffice customizationForcesave --value="true"
 
+# Set ODF as the default save format for new documents.
+php /var/www/html/occ --no-warnings config:app:set onlyoffice defFormats --value='{"text":"odt","spreadsheet":"ods","presentation":"odp","diagram":""}'
+
+# Open ODF files natively without converting to OOXML first.
+php /var/www/html/occ --no-warnings config:app:set onlyoffice editFormats --value='{"odt":"true","ods":"true","odp":"true"}'
+
 echo "OnlyOffice configuration completed successfully!"
 echo ""
-echo "Supported editable formats (Office Open XML):"
-echo "  - Documents: DOCX, DOCM, DOTX, DOTM"
-echo "  - Spreadsheets: XLSX, XLSM, XLTX, XLTM, XLSB"
-echo "  - Presentations: PPTX, PPTM, POTX, POTM, PPSX, PPSM"
-echo "  - PDF forms: PDF"
-echo ""
-echo "OpenDocument formats (editable with conversion):"
-echo "  - Documents: ODT, OTT, FODT"
-echo "  - Spreadsheets: ODS, OTS, FODS"
-echo "  - Presentations: ODP, OTP, FODP"
-echo ""
-echo "Note: ODT/ODS/ODP files can be opened and edited, and will be"
-echo "converted to OOXML format internally during editing."
+echo "Default save formats set to ODF:"
+echo "  - Documents:      ODT"
+echo "  - Spreadsheets:   ODS"
+echo "  - Presentations:  ODP"

@@ -6,6 +6,7 @@ services:
     volumes:
       - nextcloud-data:/var/www/html
       - ./hooks/post-installation:/docker-entrypoint-hooks.d/post-installation
+      - ./skeleton:/var/www/html/skeleton:ro
     expose:
       - 80
       - 9000
