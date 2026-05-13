@@ -141,4 +141,8 @@ done
 
 php /var/www/html/occ config:system:set skeletondirectory --value="${SKELETON_DEST}"
 
+# Application rate limits (Nextcloud, not Traefik): SPA + OIDC can exceed defaults and return 429. That breaks
+# JS module loading (empty/wrong MIME) and OCS parsing. Relax only named high-churn routes.
+php /var/www/html/occ config:system:set ratelimit_overwrite --type=json --value='{"user_oidc.timezone.settimezone":{"user":{"limit":200,"period":300}},"user_status.userstatus.getstatus":{"user":{"limit":3000,"period":60}},"user_status.heartbeat.heartbeat":{"user":{"limit":2000,"period":60}},"notifications.endpoint.listnotifications":{"user":{"limit":3000,"period":60}}}'
+
 echo "Nextcloud-Konfiguration abgeschlossen!"
