@@ -145,4 +145,9 @@ php /var/www/html/occ config:system:set skeletondirectory --value="${SKELETON_DE
 # JS module loading (empty/wrong MIME) and OCS parsing. Relax only named high-churn routes.
 php /var/www/html/occ config:system:set ratelimit_overwrite --type=json --value='{"user_oidc.timezone.settimezone":{"user":{"limit":200,"period":300}},"user_status.userstatus.getstatus":{"user":{"limit":3000,"period":60}},"user_status.heartbeat.heartbeat":{"user":{"limit":2000,"period":60}},"notifications.endpoint.listnotifications":{"user":{"limit":3000,"period":60}}}'
 
+# Brute-force protection (Nextcloud core, not Traefik): user_oidc marks failed OIDC login/logout responses
+# as throttled. SSO misconfiguration or repeated logout tests can hit the default limit (10) per subnet
+# and return HTTP 429 ("Zu viele Anfragen aus deinem Netzwerk"). Slightly higher limit for multi-user NAT.
+php /var/www/html/occ config:system:set auth.bruteforce.max-attempts --type=integer --value=25
+
 echo "Nextcloud-Konfiguration abgeschlossen!"
