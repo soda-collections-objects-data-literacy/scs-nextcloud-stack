@@ -148,6 +148,6 @@ php /var/www/html/occ config:system:set ratelimit_overwrite --type=json --value=
 # Brute-force protection (Nextcloud core, not Traefik): user_oidc marks failed OIDC login/logout responses
 # as throttled. SSO misconfiguration or repeated logout tests can hit the default limit (10) per subnet
 # and return HTTP 429 ("Zu viele Anfragen aus deinem Netzwerk"). Slightly higher limit for multi-user NAT.
-php /var/www/html/occ config:system:set auth.bruteforce.max-attempts --type=integer --value=25
+php /var/www/html/occ config:system:set auth.bruteforce.max-attempts --type=integer --value=100
 
 echo "Nextcloud-Konfiguration abgeschlossen!"
