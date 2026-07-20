@@ -126,7 +126,7 @@ php /var/www/html/occ --no-warnings app:disable app_api
 # Configure the skeleton directory for new users.
 # The source skeleton is mounted read-only, so copy it to a writable location
 # inside the nextcloud-data volume and resolve domain placeholders there.
-SKELETON_SRC="/var/www/html/skeleton"
+SKELETON_SRC="/scs-skeleton"
 SKELETON_DEST="/var/www/html/data/__skeleton__"
 
 mkdir -p "${SKELETON_DEST}"

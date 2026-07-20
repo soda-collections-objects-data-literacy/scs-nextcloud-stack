@@ -1,12 +1,13 @@
 services:
   # Nextcloud FPM
   nextcloud--nextcloud:
-    image: nextcloud:32-fpm
+    image: nextcloud:33-fpm
     restart: unless-stopped
     volumes:
       - nextcloud-data:/var/www/html
       - ./hooks/post-installation:/docker-entrypoint-hooks.d/post-installation
-      - ./skeleton:/var/www/html/skeleton:ro
+      # Outside /var/www/html so Nextcloud upgrade rsync can replace core files in the data volume.
+      - ./skeleton:/scs-skeleton:ro
     expose:
       - 80
       - 9000
