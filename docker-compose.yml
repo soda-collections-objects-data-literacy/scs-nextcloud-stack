@@ -1,7 +1,7 @@
 services:
   # Nextcloud FPM
   nextcloud--nextcloud:
-    image: nextcloud:33-fpm
+    image: nextcloud:34-fpm
     restart: unless-stopped
     volumes:
       - nextcloud-data:/var/www/html
