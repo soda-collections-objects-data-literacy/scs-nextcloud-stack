@@ -150,4 +150,12 @@ php /var/www/html/occ config:system:set ratelimit_overwrite --type=json --value=
 # and return HTTP 429 ("Zu viele Anfragen aus deinem Netzwerk"). Slightly higher limit for multi-user NAT.
 php /var/www/html/occ config:system:set auth.bruteforce.max-attempts --type=integer --value=100
 
+# Sharing autocomplete (Admin → Sharing / settings/admin/sharing): disable user suggestions in the share
+# dialog and system address book access. Sub-options stay off so name/email/phone/group fallbacks cannot
+# re-enable suggestions when the main setting is toggled later.
+php /var/www/html/occ config:app:set core shareapi_allow_share_dialog_user_enumeration --value=no
+php /var/www/html/occ config:app:set core shareapi_restrict_user_enumeration_to_group --value=no
+php /var/www/html/occ config:app:set core shareapi_restrict_user_enumeration_to_phone --value=no
+php /var/www/html/occ config:app:set core shareapi_restrict_user_enumeration_full_match --value=no
+
 echo "Nextcloud-Konfiguration abgeschlossen!"
