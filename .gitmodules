@@ -1,0 +1,3 @@
+[submodule "apps/scs_manager_integration"]
+	path = apps/scs_manager_integration
+	url = git@github.com:soda-collections-objects-data-literacy/scs_manager_integration.git
