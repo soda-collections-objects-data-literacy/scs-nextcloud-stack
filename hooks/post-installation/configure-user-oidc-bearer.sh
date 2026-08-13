@@ -82,16 +82,19 @@ if (!\$clientId || !\$clientSecret || !\$discovery) {
 
 passthru('runuser -u www-data -- php /var/www/html/occ user_oidc:provider:delete Keycloak --force --no-warnings -n 2>/dev/null');
 
+# Scope includes groups so Keycloak project group memberships (integer names)
+# are available for Nextcloud group provisioning / Team Folder ACLs.
 \$cmd = sprintf(
-    'runuser -u www-data -- php /var/www/html/occ user_oidc:provider %s --clientid %s --clientsecret %s --discoveryuri %s --postlogouturi %s --send-id-token-hint=1 --check-bearer=1 --bearer-provisioning=1 --mapping-display-name=preferred_username --unique-uid=0 --no-warnings -n',
+    'runuser -u www-data -- php /var/www/html/occ user_oidc:provider %s --clientid %s --clientsecret %s --discoveryuri %s --postlogouturi %s --scope %s --send-id-token-hint=1 --check-bearer=1 --bearer-provisioning=1 --group-provisioning=1 --mapping-groups=groups --mapping-display-name=preferred_username --unique-uid=0 --no-warnings -n',
     escapeshellarg(\$providerId),
     escapeshellarg(\$clientId),
     escapeshellarg(\$clientSecret),
     escapeshellarg(\$discovery),
-    escapeshellarg(\$postLogoutUri)
+    escapeshellarg(\$postLogoutUri),
+    escapeshellarg('openid email profile groups')
 );
 passthru(\$cmd);
-echo \"user_oidc provider configured.\n\";
+echo \"user_oidc provider configured (group provisioning enabled).\n\";
 "
 
 # 3. Disable ID4me — domain-based dynamic OIDC; not used with central Keycloak SSO.
