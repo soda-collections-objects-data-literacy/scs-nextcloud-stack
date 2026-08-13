@@ -28,12 +28,12 @@ Klicken Sie einfach auf **+ Neu** in der Dateiansicht, um ein neues Dokument zu 
 
 ### Der SCS-Share-Ordner
 
-Der Ordner **`SCS-Share`** ist ein spezielles geteiltes Verzeichnis, das Ihren Drive mit anderen SCS-Anwendungen verbindet, auf die Sie Zugriff haben, z. B.:
+Der Ordner **`SCS-Share`** ist ein **geteilter Team-Ordner** (nicht Ihr privater Home-Ordner). Er verbindet Ihren Drive mit anderen SCS-Anwendungen, auf die Sie Zugriff haben, z. B.:
 
 - **[WissKI](https://wiss-ki.eu)** — ein semantisches Datenmanagementsystem für Kulturgut und Forschungsdaten
 - **[JupyterHub](https://jupyter.org/hub)** — eine interaktive Rechenumgebung für Datenanalyse und Notebooks
 
-Dateien, die im `SCS-Share`-Ordner abgelegt werden, sind anwendungsübergreifend zugänglich — ohne manuelle Uploads oder Downloads.
+Dateien, die im `SCS-Share`-Ordner abgelegt werden, sind anwendungsübergreifend zugänglich — ohne manuelle Uploads oder Downloads. Legen Sie gemeinsame Dateien bitte direkt in diesem Team-Ordner ab (ggf. unter Ihrem Benutzerverzeichnis darin).
 
 ### Schnellzugriff
 
@@ -74,12 +74,12 @@ Simply click **+ New** in the Files view to create a new document, or open an ex
 
 ### The SCS-Share Folder
 
-The **`SCS-Share`** folder is a special shared directory that connects your drive with other SCS applications you own or have access to, such as:
+The **`SCS-Share`** folder is a **shared Team Folder** (not a private home folder). It connects your drive with other SCS applications you own or have access to, such as:
 
 - **[WissKI](https://wiss-ki.eu)** — a semantic data management system for cultural heritage and research data
 - **[JupyterHub](https://jupyter.org/hub)** — an interactive computing environment for data analysis and notebooks
 
-Files placed in `SCS-Share` are accessible across these applications, making it easy to exchange data between your tools without manual uploads or downloads.
+Files placed in `SCS-Share` are accessible across these applications, making it easy to exchange data between your tools without manual uploads or downloads. Please put shared files directly into this Team Folder (optionally under your user subfolder inside it).
 
 ### Quick Links
 
