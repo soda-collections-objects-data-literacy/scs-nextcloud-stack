@@ -1,6 +1,6 @@
 services:
   # Nextcloud FPM
-  nextcloud--nextcloud:
+  nextcloud--nextcloud--app:
     image: nextcloud:34-fpm
     restart: unless-stopped
     volumes:
@@ -52,12 +52,12 @@ services:
       - SOCIALLOGIN_UPDATE_PROFILE_ON_LOGIN=${NEXTCLOUD_SOCIALLOGIN_UPDATE_PROFILE_ON_LOGIN:-}
 
     depends_on:
-      - nextcloud--redis
+      - nextcloud--redis--cache
     networks:
       - nextcloud
 
   # OnlyOffice Document Server
-  nextcloud--onlyoffice-document-server:
+  nextcloud--ods--app:
     image: onlyoffice/documentserver:8.3
     restart: unless-stopped
     environment:
@@ -68,7 +68,7 @@ services:
     networks:
       - nextcloud
     depends_on:
-      - nextcloud--nextcloud
+      - nextcloud--nextcloud--app
     expose:
       - '80'
       - '443'
@@ -77,35 +77,35 @@ services:
       - onlyoffice-log:/var/log/onlyoffice
 
   # Nginx Reverse Proxy for Nextcloud
-  nextcloud--nextcloud-reverse-proxy:
+  nextcloud--nginx--edge:
     image: nginx:1.27
     restart: unless-stopped
     volumes:
       - ./reverse-proxy/nginx.conf:/etc/nginx/nginx.conf
       - nextcloud-data:/var/www/html:ro
     depends_on:
-      - nextcloud--nextcloud
-      - nextcloud--onlyoffice-document-server
+      - nextcloud--nextcloud--app
+      - nextcloud--ods--app
     networks:
       - nextcloud
     ports:
       - "${NEXTCLOUD_NEXTCLOUD_PORT:-8080}:80"
 
   # OnlyOffice Reverse Proxy
-  nextcloud--onlyoffice-reverse-proxy:
+  nextcloud--ods--edge:
     image: nginx:1.27
     restart: unless-stopped
     volumes:
       - ./onlyoffice-proxy/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
-      - nextcloud--onlyoffice-document-server
+      - nextcloud--ods--app
     networks:
       - nextcloud
     ports:
       - "${NEXTCLOUD_ONLYOFFICE_PORT:-8081}:80"
 
   # Redis for Nextcloud caching
-  nextcloud--redis:
+  nextcloud--redis--cache:
     image: redis:alpine
     restart: unless-stopped
     networks:
