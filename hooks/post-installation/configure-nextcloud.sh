@@ -132,9 +132,9 @@ SKELETON_DEST="/var/www/html/data/__skeleton__"
 mkdir -p "${SKELETON_DEST}"
 cp -r "${SKELETON_SRC}/." "${SKELETON_DEST}/"
 
-# Replace __SCS_FULL_DOMAIN__ with the actual domain derived from NEXTCLOUD_DOMAIN
-# (e.g. drive.scs.example.com → example.com by stripping the drive.scs. prefix).
-SCS_FULL_DOMAIN="${NEXTCLOUD_DOMAIN#drive.scs.}"
+# Replace __SCS_FULL_DOMAIN__ with the host suffix from NEXTCLOUD_DOMAIN
+# (e.g. drive.dev-scs.sammlungen.io → dev-scs.sammlungen.io; drive.scs.example.com → scs.example.com).
+SCS_FULL_DOMAIN="${NEXTCLOUD_DOMAIN#drive.}"
 find "${SKELETON_DEST}" -type f -name "*.md" | while read -r file; do
     sed -i "s/__SCS_FULL_DOMAIN__/${SCS_FULL_DOMAIN}/g" "$file"
 done
