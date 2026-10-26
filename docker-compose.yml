@@ -6,6 +6,7 @@ services:
     volumes:
       - nextcloud-data:/var/www/html
       - ./hooks/post-installation:/docker-entrypoint-hooks.d/post-installation
+      - ./hooks/post-upgrade:/docker-entrypoint-hooks.d/post-upgrade
       # Outside /var/www/html so Nextcloud upgrade rsync can replace core files in the data volume.
       - ./skeleton:/scs-skeleton:ro
     expose:

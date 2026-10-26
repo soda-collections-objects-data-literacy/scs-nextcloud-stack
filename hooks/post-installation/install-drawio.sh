@@ -2,9 +2,16 @@
 
 set -euo pipefail
 
-echo "Installing Draw.io plugin..."
-php /var/www/html/occ app:install drawio
-echo "Draw.io plugin installed successfully!"
+# Idempotent: also runs as post-upgrade hook, where the app may already exist
+# or may have been removed/disabled by the Nextcloud upgrade.
+if php /var/www/html/occ app:getpath drawio >/dev/null 2>&1; then
+    echo "Draw.io plugin already present, updating if possible..."
+    php /var/www/html/occ app:update drawio || true
+else
+    echo "Installing Draw.io plugin..."
+    php /var/www/html/occ app:install drawio
+    echo "Draw.io plugin installed successfully!"
+fi
 
 echo "Activating Draw.io plugin..."
 php /var/www/html/occ app:enable drawio
