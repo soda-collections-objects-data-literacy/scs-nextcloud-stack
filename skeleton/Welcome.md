@@ -8,7 +8,7 @@
 
 Dies ist Ihr persönlicher **SCS Drive** — Cloud-Speicher auf Basis von Nextcloud für Dateien und Zusammenarbeit in der SCS-Infrastruktur.
 
-Ausführliche Anleitungen (OnlyOffice, Draw.io, Ordner `SCS-Share`, Dienste-Übersicht) stehen in der **[Benutzerdokumentation](https://docs.__SCS_FULL_DOMAIN__/de/user/scs-drive/)**.
+Anleitungen stehen in der **[Benutzerdokumentation](https://docs.__SCS_FULL_DOMAIN__/de/user/)**.
 
 Bei Fragen zu Zugriff, Freigaben oder Speicherplatz wenden Sie sich an Ihren Systemadministrator.
 
@@ -18,7 +18,7 @@ Bei Fragen zu Zugriff, Freigaben oder Speicherplatz wenden Sie sich an Ihren Sys
 
 This is your personal **SCS Drive** — Nextcloud cloud storage for files and collaboration in the SCS platform.
 
-Full guides (OnlyOffice, Draw.io, the `SCS-Share` folder, service overview) are in the **[user documentation](https://docs.__SCS_FULL_DOMAIN__/en/user/scs-drive/)**.
+Guides are in the **[user documentation](https://docs.__SCS_FULL_DOMAIN__/en/user/)**.
 
 For access, sharing, or quota questions, contact your system administrator.
 
