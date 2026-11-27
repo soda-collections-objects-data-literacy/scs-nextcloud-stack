@@ -85,7 +85,7 @@ passthru('runuser -u www-data -- php /var/www/html/occ user_oidc:provider:delete
 # Scope includes groups so Keycloak project group memberships (integer names)
 # are available for Nextcloud group provisioning / Team Folder ACLs.
 \$cmd = sprintf(
-    'runuser -u www-data -- php /var/www/html/occ user_oidc:provider %s --clientid %s --clientsecret %s --discoveryuri %s --postlogouturi %s --scope %s --send-id-token-hint=1 --check-bearer=1 --bearer-provisioning=1 --group-provisioning=1 --mapping-groups=groups --mapping-display-name=preferred_username --unique-uid=0 --no-warnings -n',
+    'runuser -u www-data -- php /var/www/html/occ user_oidc:provider %s --clientid %s --clientsecret %s --discoveryuri %s --postlogouturi %s --scope %s --send-id-token-hint=1 --check-bearer=1 --bearer-provisioning=1 --group-provisioning=1 --mapping-groups=groups --mapping-display-name=preferred_username --mapping-avatar=picture --unique-uid=0 --no-warnings -n',
     escapeshellarg(\$providerId),
     escapeshellarg(\$clientId),
     escapeshellarg(\$clientSecret),
